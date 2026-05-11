@@ -31,3 +31,7 @@ const desconto = produtosArquivo.map((produto)=> {
     return {...produto, autor: produto.autor.toUpperCase()}}
 )
 console.log(desconto)
+
+console.log(" Produto encontrado pelo ano")
+const encontrar = produtosArquivo.find((produto) => produto.ano == 2023)
+console.log(encontrar)
