@@ -4,9 +4,27 @@
     <meta charset="UTF-8">
     <title>Contato - Menor Quenti</title>
     <style>
-        body { font-family: Arial; background: #fff8f0; margin: 0; text-align: center; }
+        /* Garante que a página ocupe toda a altura da tela */
+        html, body { 
+            height: 100%; 
+            margin: 0; 
+        }
+        /* Transforma o body em um container flexível vertical */
+        body { 
+            font-family: Arial; 
+            background: #fff8f0; 
+            text-align: center; 
+            display: flex;
+            flex-direction: column;
+        }
         header { background: #c0392b; color: white; padding: 15px; }
         a { color: white; margin: 0 10px; }
+        
+        /* Container principal que cresce e empurra o rodapé para baixo */
+        .conteudo {
+            flex: 1;
+        }
+        
         section { padding: 30px 20px; }
         footer { background: #2c3e50; color: white; padding: 12px; }
     </style>
@@ -21,11 +39,14 @@
         <a href="pedido.html">Pedido</a>
     </header>
 
-    <section>
-        <p>📍 Rua das Pizzas, 123</p>
-        <p>📞 (11) 99999-9999</p>
-        <p>🕒 18h às 23h</p>
-    </section>
+    <!-- Envolve a seção de contato para empurrar o rodapé -->
+    <div class="conteudo">
+        <section>
+            <p>📍 Rua das Pizzas, 123</p>
+            <p>📞 (11) 99999-9999</p>
+            <p>🕒 18h às 23h</p>
+        </section>
+    </div>
 
     <footer>
         <p>© 2026 Pizzaria Menor Quenti</p>
