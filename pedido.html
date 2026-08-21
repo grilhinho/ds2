@@ -1,15 +1,163 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">S
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pedido - Menor Quenti</title>
     <style>
-        body { font-family: Arial; background: #fff8f0; margin: 0; text-align: center; }
-        header { background: #c0392b; color: white; padding: 15px; }
-        a { color: white; margin: 0 10px; }
-        .botao { display: inline-block; background: #25D366; color: white; padding: 12px 25px; text-decoration: none; border-radius: 6px; margin-top: 20px; }
-        section { padding: 30px 20px; }
-        footer { background: #2c3e50; color: white; padding: 12px; }
+        body {
+            font-family: Arial, sans-serif;
+            background: #fff8f0;
+            margin: 0;
+            text-align: center;
+            color: #333;
+        }
+
+        header {
+            background: #c0392b;
+            color: white;
+            padding: 15px;
+        }
+
+        header h2 {
+            margin: 0 0 10px 0;
+        }
+
+        header a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        header a:hover {
+            text-decoration: underline;
+        }
+
+        section {
+            padding: 30px 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .formulario-pedido {
+            background: white;
+            border-radius: 12px;
+            padding: 30px 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            text-align: left;
+            margin-top: 10px;
+        }
+
+        .formulario-pedido h3 {
+            margin: 0 0 22px 0;
+            color: #c0392b;
+            font-size: 1.4em;
+            text-align: center;
+        }
+
+        .campo {
+            margin-bottom: 18px;
+        }
+
+        .campo label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 6px;
+            font-size: 1em;
+        }
+
+        .campo input,
+        .campo select,
+        .campo textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            font-family: Arial, sans-serif;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+        }
+
+        .campo input:focus,
+        .campo select:focus,
+        .campo textarea:focus {
+            outline: none;
+            border-color: #c0392b;
+            box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.15);
+        }
+
+        .campo textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .linha-dupla {
+            display: flex;
+            gap: 15px;
+        }
+
+        .linha-dupla .campo {
+            flex: 1;
+        }
+
+        .botao-enviar {
+            width: 100%;
+            background: #c0392b;
+            color: white;
+            border: none;
+            padding: 16px;
+            font-size: 1.15em;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .botao-enviar:hover {
+            background: #a93226;
+            transform: translateY(-2px);
+        }
+
+        .aviso {
+            font-size: 0.9em;
+            color: #666;
+            text-align: center;
+            margin-top: 12px;
+        }
+
+        .botao-whatsapp {
+            display: inline-block;
+            background: #25D366;
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 6px;
+            margin-top: 25px;
+            font-weight: bold;
+            box-shadow: 0 3px 10px rgba(37, 211, 102, 0.3);
+        }
+
+        .botao-whatsapp:hover {
+            background: #1ebe57;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 12px;
+            margin-top: 40px;
+        }
+
+        /* Responsivo */
+        @media (max-width: 500px) {
+            .linha-dupla {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
     </style>
 </head>
 <body>
@@ -23,13 +171,123 @@
     </header>
 
     <section>
-        <p>Peça pelo WhatsApp:</p>
-        <a class="botao">📱 Pedir Agora</a>
+        <div class="formulario-pedido">
+            <h3>🍕 Monte seu pedido</h3>
+
+            <form id="formPedido" onsubmit="enviarPedido(event)">
+                
+                <div class="campo">
+                    <label for="nome">Nome completo *</label>
+                    <input type="text" id="nome" name="nome" required placeholder="Seu nome">
+                </div>
+
+                <div class="linha-dupla">
+                    <div class="campo">
+                        <label for="telefone">Telefone / WhatsApp *</label>
+                        <input type="tel" id="telefone" name="telefone" required placeholder="(11) 99999-9999">
+                    </div>
+                    <div class="campo">
+                        <label for="quantidade">Quantidade</label>
+                        <select id="quantidade" name="quantidade">
+                            <option value="1">1 pizza</option>
+                            <option value="2">2 pizzas</option>
+                            <option value="3">3 pizzas</option>
+                            <option value="4">4 pizzas</option>
+                            <option value="5">5 ou mais</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="campo">
+                    <label for="sabor">Sabor da pizza *</label>
+                    <select id="sabor" name="sabor" required>
+                        <option value="">Selecione o sabor</option>
+                        <option value="Mussarela">Mussarela</option>
+                        <option value="Calabresa">Calabresa</option>
+                        <option value="Portuguesa">Portuguesa</option>
+                        <option value="Frango com Catupiry">Lombo com Catupiry</option>
+                        <option value="Marguerita">Marguerita</option>
+                        <option value="Quatro Queijos">Quatro Queijos</option>
+                        <option value="Pepperoni">Pepperoni</option>
+                        <option value="Bacon">Bacon</option>
+                        <option value="Vegetariana">Vegetariana</option>
+                        <option value="Outro">Outro (descreva nas observações)</option>
+                    </select>
+                </div>
+
+                <div class="campo">
+                    <label for="tamanho">Tamanho *</label>
+                    <select id="tamanho" name="tamanho" required>
+                        <option value="">Selecione o tamanho</option>
+                        <option value="Pequena">Pequena (4 fatias)</option>
+                        <option value="Média">Média (6 fatias)</option>
+                        <option value="Grande">Grande (8 fatias)</option>
+                        <option value="Família">Família (12 fatias)</option>
+                    </select>
+                </div>
+
+                <div class="campo">
+                    <label for="endereco">Endereço de entrega *</label>
+                    <input type="text" id="endereco" name="endereco" required placeholder="Rua, número, bairro e complemento">
+                </div>
+
+                <div class="campo">
+                    <label for="observacoes">Observações</label>
+                    <textarea id="observacoes" name="observacoes" placeholder="Ex: sem cebola, bem assada, troco para R$ 50..."></textarea>
+                </div>
+
+                <button type="submit" class="botao-enviar">
+                    📲 Enviar pedido pelo WhatsApp
+                </button>
+
+                <p class="aviso">
+                    * Campos obrigatórios. Ao clicar, o pedido será aberto no WhatsApp.
+                </p>
+            </form>
+        </div>
+
+        <p style="margin-top: 30px; margin-bottom: 8px;">Ou fale direto conosco:</p>
+        <a href="https://wa.me/5511999999999" class="botao-whatsapp" target="_blank">
+            📱 Chamar no WhatsApp
+        </a>
     </section>
 
     <footer>
         <p>© 2026 Pizzaria Menor Quenti</p>
     </footer>
+
+    <script>
+        function enviarPedido(event) {
+            event.preventDefault();
+
+            const nome = document.getElementById('nome').value.trim();
+            const telefone = document.getElementById('telefone').value.trim();
+            const quantidade = document.getElementById('quantidade').value;
+            const sabor = document.getElementById('sabor').value;
+            const tamanho = document.getElementById('tamanho').value;
+            const endereco = document.getElementById('endereco').value.trim();
+            const observacoes = document.getElementById('observacoes').value.trim();
+
+            let mensagem = `*🍕 NOVO PEDIDO - Menor Quenti*%0A%0A`;
+            mensagem += `*Nome:* ${nome}%0A`;
+            mensagem += `*Telefone:* ${telefone}%0A`;
+            mensagem += `*Quantidade:* ${quantidade}%0A`;
+            mensagem += `*Sabor:* ${sabor}%0A`;
+            mensagem += `*Tamanho:* ${tamanho}%0A`;
+            mensagem += `*Endereço:* ${endereco}%0A`;
+            
+            if (observacoes) {
+                mensagem += `*Observações:* ${observacoes}%0A`;
+            }
+
+            mensagem += `%0A_Pedido enviado pelo site_`;
+
+            const numeroWhatsApp = '5511999999999';
+            const url = `https://wa.me/${numeroWhatsApp}?text=${mensagem}`;
+
+            window.open(url, '_blank');
+        }
+    </script>
 
 </body>
 </html>
